@@ -18,6 +18,7 @@
   --> localstorage.tsx      All the crud for persisted storage
   --> utils.tsx             There's only a single function there but this is where I put static functions
   --> fetchers.tsx          Where the api calls are called using axios
+  --> constants.tsx         Dial-able constants, avoids unsynchronized static vars
 ```
 
 # Todo
@@ -26,5 +27,4 @@
 - [ ] Abort api calls on unmount
 - [x] Refactor useEffects into hooks
 - [x] Pagination Component
-- [ ] Testing
 - [x] Add help tooltips to filters
