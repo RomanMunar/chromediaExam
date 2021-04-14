@@ -63,7 +63,7 @@ const AnimeCharacterCard = ({ character }: { character: Character }) => {
           <h3 className="text-2xl font-bold text-center">No Image</h3>
         )}
         <div className="absolute bottom-0 w-full p-4 text-lg text-center text-white transition transform bg-black bg-opacity-70">
-          <h2 className="truncate">{character.attributes.name}</h2>
+          <h2 className="line-clamp-1">{character.attributes.name}</h2>
         </div>
       </button>
     </>

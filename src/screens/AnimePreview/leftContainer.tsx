@@ -3,9 +3,9 @@ import { Heart, Star } from '../../components/icons'
 
 const LeftContainer = ({ anime }: { anime: Anime }) => {
   return (
-    <div className="flex flex-col items-center flex-none m-auto sm:space-x-4 lg:space-x-0 sm:flex-row xl:flex-col lg:m-0">
+    <div className="flex flex-col items-center flex-none mx-auto sm:space-x-4 lg:space-x-0 sm:flex-row lg:flex-col">
       <img
-        className="mb-4 w-72 lg:mb-0"
+        className="m-4 w-72"
         src={anime.attributes.posterImage.small}
         alt={`${anime.attributes.titles.en_jp} Poster`}
       />

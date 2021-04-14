@@ -31,7 +31,7 @@ const AnimePreview = () => {
       ) : anime ? (
         <>
           <div className="m-auto mb-5 max-w-7xl">
-            <h1 className="pt-5 pb-2 text-4xl font-bold text-center">
+            <h1 className="pt-5 pb-2 text-4xl font-bold text-center line-clamp-1">
               {anime.attributes.titles.en
                 ? anime.attributes.titles.en
                 : anime.attributes.titles.en_jp}
