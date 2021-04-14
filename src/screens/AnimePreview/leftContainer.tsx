@@ -3,7 +3,7 @@ import { Heart, Star } from '../../components/icons'
 
 const LeftContainer = ({ anime }: { anime: Anime }) => {
   return (
-    <div className='flex flex-col flex-none space-y-5'>
+    <div className='flex flex-col flex-none m-auto space-y-5 md:m-0'>
       <img
         className='w-72'
         src={anime.attributes.posterImage.small}
