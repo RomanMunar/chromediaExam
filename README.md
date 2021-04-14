@@ -25,5 +25,6 @@
 - [ ] Error handling
 - [ ] Abort api calls on unmount
 - [x] Refactor useEffects into hooks
+- [x] Pagination Component
 - [ ] Testing
 - [ ] Add help tooltips to filters

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Pagination } from '../../components'
+import { offset } from '../../constants'
 import { AnimeCard } from '../../components/anime'
 import { Reset } from '../../components/icons'
 import Layout from '../../components/layout'
@@ -12,14 +14,15 @@ export type FilterType = 'star' | 'heart' | 'none'
 const HomeScreen = () => {
   const [filter, setFilter] = useState<FilterType>('none')
   const {
-    incrementPage,
-    decrementPage,
     searchKeyword,
     loading,
     animes,
     resultsCount,
     setResultsCount,
     setAnimes,
+    setPage,
+    page,
+    totalCount,
   } = useSearch(filter)
 
   const onStarFilterClick = () => {
@@ -64,7 +67,14 @@ const HomeScreen = () => {
       <div className="flex-grow pb-40 bg-blue-100 shadow-inner">
         <div className="bg-blue-100 shadow-inner">
           <div className="w-full max-w-6xl m-auto">
-            <div className="flex items-center w-full p-4">
+            <div className="px-4 py-2 space-y-4">
+              <Pagination
+                offset={offset}
+                setPage={setPage}
+                page={page}
+                pages={8}
+                resultsCount={totalCount}
+              />
               {searchKeyword && (
                 <div>
                   Search Results for:{' '}
@@ -73,20 +83,6 @@ const HomeScreen = () => {
                   </h3>
                 </div>
               )}
-              <div className="flex items-center ml-auto">
-                <button
-                  onClick={decrementPage}
-                  className="flex px-3 py-1.5 mx-auto text-blue-900 border border-blue-600 rounded-md rounded-r-none"
-                >
-                  Prev
-                </button>
-                <button
-                  onClick={incrementPage}
-                  className="flex px-3 py-1.5 mx-auto text-white bg-blue-600 border border-blue-600 rounded-md rounded-l-none shadow-2xl"
-                >
-                  Next
-                </button>
-              </div>
             </div>
             <div className="grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
               {loading
