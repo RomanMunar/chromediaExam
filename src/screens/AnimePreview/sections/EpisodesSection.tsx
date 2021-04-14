@@ -28,7 +28,7 @@ const EpisodesContainer = ({ animeId }: { animeId: string }) => {
             .fill(undefined)
             .map((_, idx) => (
               <div
-                className='w-full bg-gray-700 rounded shadow animate-pulse h-14'
+                className='w-full bg-gray-500 rounded shadow animate-pulse h-14'
                 key={idx}
               />
             ))

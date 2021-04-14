@@ -30,7 +30,7 @@ const CharacterGridSection = ({ animeId }: { animeId: string }) => {
             .fill(undefined)
             .map((_, idx) => (
               <div
-                className='w-full h-56 bg-gray-700 rounded shadow animate-pulse'
+                className='w-full h-56 bg-gray-500 rounded shadow animate-pulse'
                 key={idx}
               />
             ))

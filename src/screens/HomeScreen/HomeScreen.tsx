@@ -137,7 +137,7 @@ const HomeScreen = () => {
                   .fill(undefined)
                   .map((_, idx) => (
                     <div
-                      className='w-full bg-gray-700 rounded shadow h-80 animate-pulse'
+                      className='w-full bg-gray-500 rounded shadow h-80 animate-pulse'
                       key={idx}
                     />
                   ))
