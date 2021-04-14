@@ -29,7 +29,15 @@ const modal = ({
           transform: `translate(-50%,${isOpen ? 0 : '-100vh'})`,
         }}
       >
-        {children}
+        <div className='relative'>
+          {children}
+          <button
+            onClick={() => setOpen(false)}
+            className='absolute text-2xl font-bold text-red-700 top-3 right-5'
+          >
+            x
+          </button>
+        </div>
       </div>
     </>
   )
