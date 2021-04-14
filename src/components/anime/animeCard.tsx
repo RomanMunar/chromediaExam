@@ -2,8 +2,11 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import {
+  addHeartAnime,
   addStarAnime,
+  getHeartedAnimes,
   getStarredAnimes,
+  removeHeartAnime,
   removeStarAnime,
 } from '../../localStorage'
 import { Anime } from '../../models/anime'
@@ -14,10 +17,12 @@ interface AnimeCardProps {
 }
 
 const AnimeCard = ({ anime }: AnimeCardProps) => {
-  const history = useHistory()
   const [hovered, setHovered] = useState(false)
   const [starred, setStarred] = useState(
     getStarredAnimes().find((a) => a.id === anime.id) ? true : false
+  )
+  const [hearted, setHearted] = useState(
+    getHeartedAnimes().find((a) => a.id === anime.id) ? true : false
   )
   const onStarClick = () => {
     if (starred) {
@@ -26,6 +31,16 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
     } else {
       addStarAnime(anime)
       setStarred(true)
+    }
+  }
+
+  const onHeartClick = () => {
+    if (hearted) {
+      removeHeartAnime(anime)
+      setHearted(false)
+    } else {
+      addHeartAnime(anime)
+      setHearted(true)
     }
   }
 
@@ -66,7 +81,12 @@ const AnimeCard = ({ anime }: AnimeCardProps) => {
             </span>
           </div>
           <div className='flex items-center'>
-            <Heart className='w-6 h-6 text-white' />
+            <button onClick={onHeartClick}>
+              <Heart
+                fill={hearted ? '#CB0202' : 'none'}
+                className='w-6 h-6 text-white'
+              />
+            </button>
             <span className='text-sm text-white'>
               {anime.attributes.favoritesCount}
             </span>
