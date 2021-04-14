@@ -11,11 +11,11 @@ const AnimeCharacterCard = ({ character }: { character: Character }) => {
     <>
       <Modal isOpen={isModalOpen} setOpen={setModalOpen}>
         <div className='rounded-md shadow-2xl bg-blue-50'>
-          <h2 className='m-4 text-2xl font-bold text-center'>
+          <h2 className='p-4 text-2xl font-bold text-center whitespace-nowrap'>
             {character.attributes.name}
           </h2>
           <div className='flex flex-row justify-center space-x-4 bg-blue-100 shadow-inner'>
-            <div className='sticky top-0 flex-none w-48 p-4'>
+            <div className='sticky top-0 flex-none hidden w-48 p-4 md:block'>
               {character.attributes.image &&
               character.attributes.image.original ? (
                 <div
@@ -34,7 +34,7 @@ const AnimeCharacterCard = ({ character }: { character: Character }) => {
             </div>
             <div
               style={{ height: '400px' }}
-              className='p-2 overflow-auto text-sm'
+              className='w-screen p-2 px-4 overflow-auto text-sm'
               dangerouslySetInnerHTML={{
                 __html: character.attributes.description,
               }}
