@@ -1,28 +1,14 @@
-import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 import { ArrowBack } from '../../components/icons'
-import { getAnime } from '../../fetchers'
-import { Anime } from '../../models/anime'
+import { useGetAnime } from '../../hooks/useGetAnime'
 import { LeftContainer } from './leftContainer'
 import { EpisodesSection } from './sections'
 import CharacterGridSection from './sections/CharacterSection'
 
 const AnimePreview = () => {
   const { animeId } = useParams<{ animeId: string }>()
-  const [anime, setAnime] = useState<Anime>()
-  const [loading, setLoading] = useState(true)
   const history = useHistory()
-
-  useEffect(() => {
-    const fetchAnime = async () => {
-      const anime = await getAnime(animeId)
-      if (anime) {
-        setAnime(anime.data)
-      }
-      setLoading(false)
-    }
-    fetchAnime()
-  }, [animeId])
+  const { loading, anime } = useGetAnime(animeId)
 
   return (
     <div className="min-h-screen pb-40 bg-blue-50">
