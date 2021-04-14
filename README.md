@@ -27,4 +27,4 @@
 - [x] Refactor useEffects into hooks
 - [x] Pagination Component
 - [ ] Testing
-- [ ] Add help tooltips to filters
+- [x] Add help tooltips to filters
