@@ -4,6 +4,7 @@ import { filterByUniqueField } from './utils'
 
 interface LocalStorage {
   starredAnimes: Anime[]
+  heartedAnimes: Anime[]
   watchedEpisodes: Episode[]
 }
 
@@ -37,6 +38,25 @@ export const addStarAnime = (anime: Anime) => {
 export const removeStarAnime = (anime: Anime) => {
   const starredAnimes = filterByUniqueField(getStarredAnimes(), 'id')
   return setStarredAnimes(starredAnimes)
+}
+
+export const getHeartedAnimes = () => {
+  return getLocalStorageItem('starredAnimes') as Anime[]
+}
+
+export const setHeartedAnimes = (animes: Anime[]) => {
+  const uniqueAnimes = filterByUniqueField(animes, 'id')
+  return setLocalStorageItem('heartedAnimes', uniqueAnimes) as Anime[]
+}
+
+export const addHeartAnime = (anime: Anime) => {
+  const heartedAnimes = [...getHeartedAnimes(), anime]
+  return setHeartedAnimes(heartedAnimes)
+}
+
+export const removeHeartAnime = (anime: Anime) => {
+  const heartedAnimes = filterByUniqueField(getHeartedAnimes(), 'id')
+  return setHeartedAnimes(heartedAnimes)
 }
 
 export const getWatchedEpisodes = () => {
