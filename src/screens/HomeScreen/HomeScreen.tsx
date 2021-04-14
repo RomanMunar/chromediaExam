@@ -149,7 +149,7 @@ const HomeScreen = () => {
                     <AnimeCard anime={anime} key={anime.id} />
                   ))}
             </div>
-            {!loading && !displayedAnimes && (
+            {!loading && displayedAnimes && displayedAnimes.length <= 0 && (
               <div className="py-10 space-y-4">
                 <h2 className="text-3xl font-bold text-center">
                   No Results Found
