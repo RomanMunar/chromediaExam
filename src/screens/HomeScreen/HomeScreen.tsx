@@ -40,16 +40,18 @@ const HomeScreen = () => {
 
   useEffect(() => {
     if (filter === 'none') {
-      setDisplayedAnimes(fetchedAnimes)
+      setDisplayedAnimes(fetchedAnimes) // cached animes from initial fetch
     }
 
     if (filter === 'star') {
       const starredAnimes = getStarredAnimes()
+      setResultsCount(starredAnimes.length)
       setDisplayedAnimes(starredAnimes)
     }
     if (filter === 'heart') {
-      const starredAnimes = getHeartedAnimes()
-      setDisplayedAnimes(starredAnimes)
+      const heartedAnimes = getHeartedAnimes()
+      setResultsCount(heartedAnimes.length)
+      setDisplayedAnimes(heartedAnimes)
     }
     // eslint-disable-next-line
   }, [filter])
