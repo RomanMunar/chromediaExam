@@ -7,8 +7,10 @@ const SearchBar = () => {
   const history = useHistory()
   const onSearchSubmit = (e: FormEvent) => {
     e.preventDefault()
-    history.push('?filter[text]=' + searchInput)
-    setSearchInput('')
+    if (searchInput && searchInput !== '') {
+      history.push('?filter[text]=' + searchInput)
+      setSearchInput('')
+    }
   }
 
   return (
