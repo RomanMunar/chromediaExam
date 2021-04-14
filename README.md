@@ -21,6 +21,13 @@
   --> constants.tsx         Dial-able constants, avoids unsynchronized static vars
 ```
 
+# Extra Features
+
+- Character Modals to show more info
+- Stateful Pagination
+- Responsiveness of the anime preview
+- Caching of previous results
+
 # Todo
 
 - [ ] Error handling
