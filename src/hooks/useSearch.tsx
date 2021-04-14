@@ -11,6 +11,7 @@ export const useSearch = (filter: string) => {
   const [page, setPage] = useState(0)
   const [searchKeyword, setSearchKeyword] = useState('')
   const [resultsCount, setResultsCount] = useState(0)
+  const [totalCount, setTotalCount] = useState(0)
   const [fetchedAnimes, setFetchedAnimes] = useState<Anime[]>()
   const [animes, setAnimes] = useState<Anime[]>()
 
@@ -35,6 +36,7 @@ export const useSearch = (filter: string) => {
         setResultsCount(animes.data.length)
         setAnimes(animes.data)
         setFetchedAnimes(animes.data)
+        setTotalCount(animes.meta.count)
       }
       setLoading(false)
     }
@@ -55,8 +57,11 @@ export const useSearch = (filter: string) => {
     searchKeyword,
     resultsCount,
     animes,
+    page,
+    totalCount,
     setAnimes,
     setResultsCount,
+    setPage,
     incrementPage: () => setPage((p) => (p += 1)),
     decrementPage: () => setPage((p) => (p -= 1)),
     resetPage: () => setPage(0),
