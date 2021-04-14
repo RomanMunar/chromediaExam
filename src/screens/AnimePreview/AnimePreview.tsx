@@ -44,7 +44,7 @@ const AnimePreview = () => {
               <span className='font-bold'>Back</span>
             </button>
           </div>
-          <div className='flex flex-col m-auto space-y-5 md:space-x-10 md:flex-row max-w-7xl'>
+          <div className='flex flex-col m-auto space-y-5 md:space-x-10 lg:flex-row max-w-7xl'>
             <LeftContainer anime={anime} />
             <div className='flex flex-col flex-grow p-4 space-y-8'>
               <section id='synopsis'>
