@@ -39,7 +39,9 @@ const Episode = ({ episode }: { episode: EpisodeType }) => {
         {episode.attributes.number}:{' '}
         {episode.attributes.titles.en_us
           ? episode.attributes.titles.en_us
-          : episode.attributes.titles.en_jp}
+          : episode.attributes.titles.en_jp
+          ? episode.attributes.titles.en_jp
+          : 'No Title'}
       </span>
     </div>
   )
