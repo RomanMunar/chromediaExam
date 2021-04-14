@@ -34,7 +34,7 @@ const AnimeCharacterCard = ({ character }: { character: Character }) => {
             </div>
             <div
               style={{ height: '400px' }}
-              className="w-screen p-2 px-4 overflow-auto text-sm"
+              className="w-screen p-2 px-4 overflow-auto text-sm md:w-auto"
               dangerouslySetInnerHTML={{
                 __html: character.attributes.description,
               }}
