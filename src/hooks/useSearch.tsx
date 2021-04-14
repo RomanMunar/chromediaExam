@@ -42,6 +42,7 @@ export const useSearch = (filter: string) => {
     }
 
     onSearchFilter()
+    //eslint-disable-next-line
   }, [location, page])
 
   useEffect(() => {
