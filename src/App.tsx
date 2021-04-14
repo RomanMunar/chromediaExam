@@ -6,10 +6,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact component={HomeScreen} />
         <Route path="/anime/:animeId">
           <AnimePreview />
         </Route>
+        <Route path="/" component={HomeScreen} />
       </Switch>
     </Router>
   )
