@@ -13,7 +13,7 @@ import SearchBar from './SearchBar'
 export type FilterType = 'star' | 'heart' | 'none'
 
 const HomeScreen = () => {
-  const [animes, setAnimes] = useState<Anime[]>()
+  const [displayedAnimes, setDisplayedAnimes] = useState<Anime[]>()
   const [fetchedAnimes, setFetchedAnimes] = useState<Anime[]>()
   const [filter, setFilter] = useState<FilterType>('none')
   const [loading, setLoading] = useState(true)
@@ -26,13 +26,13 @@ const HomeScreen = () => {
   const onStarFilterClick = () => {
     if (filter === 'star') return setFilter('none') //toggle filter
     setFilter('star')
-    setAnimes(getStarredAnimes())
+    setDisplayedAnimes(getStarredAnimes())
   }
 
   const onHeartFilterClick = () => {
     if (filter === 'heart') return setFilter('none') //toggle filter
     setFilter('heart')
-    setAnimes(getHeartedAnimes())
+    setDisplayedAnimes(getHeartedAnimes())
   }
 
   const incrementPage = () => setPage((p) => (p += 1))
@@ -40,16 +40,16 @@ const HomeScreen = () => {
 
   useEffect(() => {
     if (filter === 'none') {
-      setAnimes(fetchedAnimes)
+      setDisplayedAnimes(fetchedAnimes)
     }
 
     if (filter === 'star') {
       const starredAnimes = getStarredAnimes()
-      setAnimes(starredAnimes)
+      setDisplayedAnimes(starredAnimes)
     }
     if (filter === 'heart') {
       const starredAnimes = getStarredAnimes()
-      setAnimes(starredAnimes)
+      setDisplayedAnimes(starredAnimes)
     }
     // eslint-disable-next-line
   }, [filter])
@@ -73,7 +73,7 @@ const HomeScreen = () => {
       const animes = await getAnimes(queryParams)
       if (animes) {
         setResultsCount(animes.data.length)
-        setAnimes(animes.data)
+        setDisplayedAnimes(animes.data)
         setFetchedAnimes(animes.data)
       }
       setLoading(false)
@@ -139,8 +139,8 @@ const HomeScreen = () => {
                       key={idx}
                     />
                   ))
-              ) : animes ? (
-                animes.map((anime) => (
+              ) : displayedAnimes ? (
+                displayedAnimes.map((anime) => (
                   <AnimeCard anime={anime} key={anime.id} />
                 ))
               ) : (
