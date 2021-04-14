@@ -4,7 +4,7 @@ import { AnimeCard } from '../../components/anime'
 import { Reset } from '../../components/icons'
 import Layout from '../../components/layout'
 import { getAnimes } from '../../fetchers'
-import { getStarredAnimes } from '../../localStorage'
+import { getHeartedAnimes, getStarredAnimes } from '../../localStorage'
 import { Anime } from '../../models/anime'
 import { useQuery } from '../../utils'
 import Filter from './Filter'
@@ -24,19 +24,15 @@ const HomeScreen = () => {
   const query = useQuery()
 
   const onStarFilterClick = () => {
-    if (filter === 'star') return setFilter('none')
+    if (filter === 'star') return setFilter('none') //toggle filter
     setFilter('star')
-    const starredAnimeIds = getStarredAnimes().map((a) => a.id)
-    const filteredAnimes =
-      animes && animes.filter((anime) => starredAnimeIds.includes(anime.id))
-
-    setAnimes(filteredAnimes)
+    setAnimes(getStarredAnimes())
   }
 
   const onHeartFilterClick = () => {
-    if (filter === 'heart') return setFilter('none')
+    if (filter === 'heart') return setFilter('none') //toggle filter
     setFilter('heart')
-    // const starredAnimeIds = getStarredAnimes().map((anime) => anime.id)
+    setAnimes(getHeartedAnimes())
   }
 
   const incrementPage = () => setPage((p) => (p += 1))
