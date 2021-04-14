@@ -48,7 +48,7 @@ const HomeScreen = () => {
       setDisplayedAnimes(starredAnimes)
     }
     if (filter === 'heart') {
-      const starredAnimes = getStarredAnimes()
+      const starredAnimes = getHeartedAnimes()
       setDisplayedAnimes(starredAnimes)
     }
     // eslint-disable-next-line
