@@ -12,7 +12,7 @@ const SearchBar = () => {
   }
 
   return (
-    <form onSubmit={onSearchSubmit}>
+    <form className='relative' onSubmit={onSearchSubmit}>
       <input
         onChange={(e) => setSearchInput(e.target.value)}
         className='w-full h-10 pl-10 border rounded-full shadow focus:outline-none focus:ring-2 ring-blue-400'
