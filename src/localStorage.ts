@@ -41,7 +41,7 @@ export const removeStarAnime = (anime: Anime) => {
 }
 
 export const getHeartedAnimes = () => {
-  return getLocalStorageItem('starredAnimes') as Anime[]
+  return getLocalStorageItem('heartedAnimes') as Anime[]
 }
 
 export const setHeartedAnimes = (animes: Anime[]) => {
