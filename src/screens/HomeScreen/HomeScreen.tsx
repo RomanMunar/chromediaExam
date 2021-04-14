@@ -1,88 +1,42 @@
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router'
+import { useState } from 'react'
 import { AnimeCard } from '../../components/anime'
 import { Reset } from '../../components/icons'
 import Layout from '../../components/layout'
-import { getAnimes } from '../../fetchers'
+import { useSearch } from '../../hooks/useSearch'
 import { getHeartedAnimes, getStarredAnimes } from '../../localStorage'
-import { Anime } from '../../models/anime'
-import { useQuery } from '../../utils'
 import Filter from './Filter'
 import SearchBar from './SearchBar'
 
 export type FilterType = 'star' | 'heart' | 'none'
 
 const HomeScreen = () => {
-  const [displayedAnimes, setDisplayedAnimes] = useState<Anime[]>()
-  const [fetchedAnimes, setFetchedAnimes] = useState<Anime[]>()
   const [filter, setFilter] = useState<FilterType>('none')
-  const [loading, setLoading] = useState(true)
-  const [page, setPage] = useState(0)
-  const [searchKeyword, setSearchKeyword] = useState('')
-  const [resultsCount, setResultsCount] = useState(0)
-  const location = useLocation()
-  const query = useQuery()
+  const {
+    incrementPage,
+    decrementPage,
+    searchKeyword,
+    loading,
+    animes,
+    resultsCount,
+    setResultsCount,
+    setAnimes,
+  } = useSearch(filter)
 
   const onStarFilterClick = () => {
     if (filter === 'star') return setFilter('none') //toggle filter
+    const animes = getStarredAnimes()
     setFilter('star')
-    setDisplayedAnimes(getStarredAnimes())
+    setAnimes(animes)
+    setResultsCount(animes.length)
   }
 
   const onHeartFilterClick = () => {
     if (filter === 'heart') return setFilter('none') //toggle filter
+    const animes = getHeartedAnimes()
     setFilter('heart')
-    setDisplayedAnimes(getHeartedAnimes())
+    setAnimes(animes)
+    setResultsCount(animes.length)
   }
-
-  const incrementPage = () => setPage((p) => (p += 1))
-  const decrementPage = () => setPage((p) => (p -= 1))
-
-  useEffect(() => {
-    if (filter === 'none') {
-      setDisplayedAnimes(fetchedAnimes) // cached animes from initial fetch
-    }
-
-    if (filter === 'star') {
-      const starredAnimes = getStarredAnimes()
-      setResultsCount(starredAnimes.length)
-      setDisplayedAnimes(starredAnimes)
-    }
-    if (filter === 'heart') {
-      const heartedAnimes = getHeartedAnimes()
-      setResultsCount(heartedAnimes.length)
-      setDisplayedAnimes(heartedAnimes)
-    }
-    // eslint-disable-next-line
-  }, [filter])
-
-  useEffect(() => {
-    const onSearchFilter = async () => {
-      setLoading(true)
-      const offset = page ? page * 10 : 0
-      let queryParams = '?'
-      if (location.search) {
-        setSearchKeyword(query.get('filter[text]')!.toString())
-        const text = query
-          .toString()
-          .split('filter%5Btext%5D=')[1]
-          .toLowerCase()
-        queryParams += `filter[text]=${text}`
-      }
-      if (page) {
-        queryParams += `&page%5Blimit%5D=10&page%5Boffset%5D=${offset}`
-      }
-      const animes = await getAnimes(queryParams)
-      if (animes) {
-        setResultsCount(animes.data.length)
-        setDisplayedAnimes(animes.data)
-        setFetchedAnimes(animes.data)
-      }
-      setLoading(false)
-    }
-    onSearchFilter()
-    // eslint-disable-next-line
-  }, [location, page])
 
   return (
     <Layout>
@@ -144,12 +98,12 @@ const HomeScreen = () => {
                         key={idx}
                       />
                     ))
-                : displayedAnimes &&
-                  displayedAnimes.map((anime) => (
+                : animes &&
+                  animes.map((anime) => (
                     <AnimeCard anime={anime} key={anime.id} />
                   ))}
             </div>
-            {!loading && displayedAnimes && displayedAnimes.length <= 0 && (
+            {!loading && animes && animes.length <= 0 && (
               <div className="py-10 space-y-4">
                 <h2 className="text-3xl font-bold text-center">
                   No Results Found
