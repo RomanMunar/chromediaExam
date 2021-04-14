@@ -25,30 +25,30 @@ const AnimePreview = () => {
   }, [animeId])
 
   return (
-    <div className='min-h-screen pb-40 bg-blue-50'>
+    <div className="min-h-screen pb-40 bg-blue-50">
       {loading ? (
-        <div className='p-40 text-3xl text-center'>Loading ...</div>
+        <div className="p-40 text-3xl text-center">Loading ...</div>
       ) : anime ? (
         <>
-          <div className='m-auto mb-5 max-w-7xl'>
-            <h1 className='pt-5 pb-2 text-4xl font-bold text-center'>
+          <div className="m-auto mb-5 max-w-7xl">
+            <h1 className="pt-5 pb-2 text-4xl font-bold text-center">
               {anime.attributes.titles.en
                 ? anime.attributes.titles.en
                 : anime.attributes.titles.en_jp}
             </h1>
             <button
               onClick={() => history.push('/')}
-              className='flex items-center p-2'
+              className="flex items-center p-2"
             >
-              <ArrowBack className='w-7 h-7 ' />
-              <span className='font-bold'>Back</span>
+              <ArrowBack className="w-7 h-7 " />
+              <span className="font-bold">Back</span>
             </button>
           </div>
-          <div className='flex flex-col m-auto space-y-5 md:space-x-10 lg:flex-row max-w-7xl'>
+          <div className="flex flex-col m-auto space-y-5 md:space-x-10 lg:flex-row max-w-7xl">
             <LeftContainer anime={anime} />
-            <div className='flex flex-col flex-grow p-4 space-y-8'>
-              <section id='synopsis'>
-                <h2 className='mb-2 text-2xl font-bold'>Synopsis</h2>
+            <div className="flex flex-col flex-grow p-4 space-y-8">
+              <section id="synopsis">
+                <h2 className="mb-2 text-2xl font-bold">Synopsis</h2>
                 <div>{anime.attributes.synopsis}</div>
               </section>
               <CharacterGridSection animeId={animeId} />
@@ -57,7 +57,7 @@ const AnimePreview = () => {
           </div>
         </>
       ) : (
-        <div className='p-40 text-3xl text-center'>No Anime Found</div>
+        <div className="p-40 text-3xl text-center">No Anime Found</div>
       )}
     </div>
   )

@@ -24,14 +24,14 @@ const Episode = ({ episode }: { episode: EpisodeType }) => {
   }
 
   return (
-    <div className='flex space-x-6'>
+    <div className="flex space-x-6">
       <button onClick={onEpisodeClick}>
         <Check
           className={clsx(
             'w-5 h-5',
             watched ? 'text-green-600' : 'text-gray-700'
           )}
-          strokeWidth='4'
+          strokeWidth="4"
         />
       </button>
       <span>{episode.attributes.airdate}</span>

@@ -6,8 +6,8 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/' exact component={HomeScreen} />
-        <Route path='/anime/:animeId'>
+        <Route path="/" exact component={HomeScreen} />
+        <Route path="/anime/:animeId">
           <AnimePreview />
         </Route>
       </Switch>
