@@ -32,13 +32,13 @@ const Pagination = ({
     <div className="w-full">
       <div className="flex justify-between flex-1 sm:hidden">
         <button
-          onClick={incrementPage}
+          onClick={decrementPage}
           className="inline-flex items-center px-4 py-2 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-md hover:text-gray-500"
         >
           Previous
         </button>
         <button
-          onClick={decrementPage}
+          onClick={incrementPage}
           className="inline-flex items-center px-4 py-2 ml-3 text-sm font-bold text-gray-700 bg-white border border-gray-300 rounded-md hover:text-gray-500"
         >
           Next
