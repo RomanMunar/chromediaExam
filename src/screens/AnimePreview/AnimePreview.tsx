@@ -44,9 +44,9 @@ const AnimePreview = () => {
               <span className='font-bold'>Back</span>
             </button>
           </div>
-          <div className='flex m-auto space-x-10 max-w-7xl'>
+          <div className='flex flex-col m-auto space-y-5 md:space-x-10 md:flex-row max-w-7xl'>
             <LeftContainer anime={anime} />
-            <div className='flex flex-col flex-grow space-y-8'>
+            <div className='flex flex-col flex-grow p-4 space-y-8'>
               <section id='synopsis'>
                 <h2 className='mb-2 text-2xl font-bold'>Synopsis</h2>
                 <div>{anime.attributes.synopsis}</div>
