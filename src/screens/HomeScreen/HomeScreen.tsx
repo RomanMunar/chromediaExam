@@ -95,23 +95,26 @@ const HomeScreen = () => {
               onHeartFilterClick={onHeartFilterClick}
               filter={filter}
             />
-            <div className='relative flex-grow w-full max-w-lg mx-auto'>
+            <div className='flex-grow hidden w-full max-w-lg mx-auto md:block'>
               <SearchBar />
             </div>
             <div className='font-medium'>
               <span className='font-bold'>{resultsCount}</span> Results
             </div>
           </div>
+          <div className='flex-grow w-full max-w-lg p-4 mx-auto md:hidden'>
+            <SearchBar />
+          </div>
         </div>
       </div>
       <div className='flex-grow pb-40 bg-blue-100 shadow-inner'>
         <div className='bg-blue-100 shadow-inner'>
           <div className='w-full max-w-6xl m-auto'>
-            <div className='flex items-center w-full py-4'>
+            <div className='flex items-center w-full p-4'>
               {searchKeyword && (
                 <div>
                   Search Results for:{' '}
-                  <h3 className='inline font-bold capitalize text-md'>
+                  <h3 className='inline font-bold capitalize whitespace-nowrap text-md'>
                     {searchKeyword}
                   </h3>
                 </div>
@@ -131,7 +134,7 @@ const HomeScreen = () => {
                 </button>
               </div>
             </div>
-            <div className='grid grid-cols-4 gap-8 p-4'>
+            <div className='grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4'>
               {loading ? (
                 new Array(8)
                   .fill(undefined)
