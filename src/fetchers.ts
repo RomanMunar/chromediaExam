@@ -14,7 +14,6 @@ export const getAnimes = async (query?: string) => {
     const data = (await axios
       .get(`/anime/${query}`)
       .then((res) => res.data)) as AnimesResponse
-    console.log(data)
     return data
   } catch (error) {
     console.error(error)
@@ -26,7 +25,6 @@ export const getAnime = async (animeId: string | number) => {
     const data = (await axios
       .get(`/anime/${animeId}`)
       .then((res) => res.data)) as AnimeResponse
-    console.log(data)
     return data
   } catch (error) {
     console.error(error)
