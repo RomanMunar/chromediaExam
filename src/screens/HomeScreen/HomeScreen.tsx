@@ -135,34 +135,34 @@ const HomeScreen = () => {
               </div>
             </div>
             <div className='grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4'>
-              {loading ? (
-                new Array(8)
-                  .fill(undefined)
-                  .map((_, idx) => (
-                    <div
-                      className='w-full bg-gray-500 rounded shadow h-80 animate-pulse'
-                      key={idx}
-                    />
-                  ))
-              ) : displayedAnimes ? (
-                displayedAnimes.map((anime) => (
-                  <AnimeCard anime={anime} key={anime.id} />
-                ))
-              ) : (
-                <div className='py-10 space-y-4'>
-                  <h2 className='text-3xl font-bold text-center'>
-                    No Results Found
-                  </h2>
-                  <button
-                    onClick={() => setFilter('none')}
-                    className='flex px-3 py-2 mx-auto space-x-2 text-white bg-blue-600 rounded shadow-2xl'
-                  >
-                    <Reset className='w-6 h-6' />
-                    <span>Reset Filters</span>
-                  </button>
-                </div>
-              )}
+              {loading
+                ? new Array(8)
+                    .fill(undefined)
+                    .map((_, idx) => (
+                      <div
+                        className='w-full bg-gray-500 rounded shadow h-80 animate-pulse'
+                        key={idx}
+                      />
+                    ))
+                : displayedAnimes &&
+                  displayedAnimes.map((anime) => (
+                    <AnimeCard anime={anime} key={anime.id} />
+                  ))}
             </div>
+            {!loading && !displayedAnimes && (
+              <div className='py-10 space-y-4'>
+                <h2 className='text-3xl font-bold text-center'>
+                  No Results Found
+                </h2>
+                <button
+                  onClick={() => setFilter('none')}
+                  className='flex px-3 py-2 mx-auto space-x-2 text-white bg-blue-600 rounded shadow-2xl'
+                >
+                  <Reset className='w-6 h-6' />
+                  <span>Reset Filters</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
