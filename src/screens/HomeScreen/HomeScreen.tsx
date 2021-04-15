@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Pagination } from '../../components'
 import { AnimeCard } from '../../components/anime'
 import { Reset } from '../../components/icons'
 import Layout from '../../components/layout'
 import { useFilter } from '../../hooks/useFilter'
+import useIntersection from '../../hooks/useIntersection'
 import { useSearch } from '../../hooks/useSearch'
 import { Anime } from '../../models/anime'
 import Filter from './Filter'
@@ -29,6 +30,7 @@ const HomeScreen = () => {
     setStarPage,
     starredAnimesTotalCount,
     starAnimesCount,
+    incrementStarPage,
   ] = useFilter(filter, 'starredAnimes')
   const [
     heartedAnimes,
@@ -36,6 +38,7 @@ const HomeScreen = () => {
     setHeartPage,
     heartedAnimesTotalCount,
     heartedAnimesCount,
+    incrementHeartPage,
   ] = useFilter(filter, 'heartedAnimes')
   const [
     loading,
@@ -46,8 +49,10 @@ const HomeScreen = () => {
     searchKeyword,
     searchedAnimestotalCount,
     searchedAnimesCount,
+    incrementSearchPage,
   ] = useSearch()
-
+  const triggerNextPageElement = useRef<HTMLDivElement>(null)
+  const intersection = useIntersection(triggerNextPageElement)
   useEffect(() => {
     setPageConfig({
       page: starPage,
@@ -88,6 +93,22 @@ const HomeScreen = () => {
     //eslint-disable-next-line
   }, [filter])
 
+  useEffect(() => {
+    if (intersection) {
+      if (intersection.isIntersecting) {
+        if (filter === 'none') {
+          incrementSearchPage()
+        } else if (filter === 'star') {
+          incrementStarPage()
+        } else {
+          incrementHeartPage()
+        }
+        window.scrollTo({ top: 0 })
+      }
+    }
+    //eslint-disable-next-line
+  }, [intersection])
+
   return (
     <Layout>
       <div className="sticky top-0 z-50 flex-none bg-blue-50">
@@ -109,7 +130,7 @@ const HomeScreen = () => {
           </div>
         </div>
       </div>
-      <div className="flex-grow pb-40 bg-blue-100 shadow-inner">
+      <div className="flex-grow pb-20 bg-blue-100 shadow-inner">
         <div className="bg-blue-100 shadow-inner">
           <div className="w-full max-w-6xl m-auto">
             {pageConfig && (
@@ -140,6 +161,7 @@ const HomeScreen = () => {
                     <AnimeCard anime={anime} key={anime.id} />
                   ))}
             </div>
+            <div className="h-20" ref={triggerNextPageElement}></div>
             {!loading && displayedAnimes && displayedAnimes.length <= 0 && (
               <div className="py-10 space-y-4">
                 <h2 className="text-3xl font-bold text-center">
