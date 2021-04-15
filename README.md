@@ -20,18 +20,3 @@
   --> fetchers.tsx          Where the api calls are called using axios
   --> constants.tsx         Dial-able constants, avoids unsynchronized static vars
 ```
-
-# Extra Features
-
-- Character Modals to show more info
-- Stateful Pagination
-- Responsiveness of the anime preview
-- Caching of previous results
-
-# Todo
-
-- [ ] Error handling
-- [ ] Abort api calls on unmount
-- [x] Refactor useEffects into hooks
-- [x] Pagination Component
-- [x] Add help tooltips to filters
