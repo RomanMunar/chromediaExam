@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
+import { offset } from '../constants'
 import { getAnimes } from '../fetchers'
 import { Anime } from '../models/anime'
 import { useQuery } from '../utils'
@@ -45,6 +46,20 @@ export const useSearch = () => {
     //eslint-disable-next-line
   }, [location, page])
 
+  const incrementPage = () => {
+    const isLastPage = page === totalCount / offset
+    if (isLastPage) {
+      return
+    }
+    setPage(page + 1)
+  }
+  const decrementPage = () => {
+    if (page === 1) {
+      return
+    }
+    setPage(page - 1)
+  }
+
   return [
     loading,
     animes,
@@ -54,14 +69,18 @@ export const useSearch = () => {
     searchKeyword,
     totalCount,
     resultsCount,
+    incrementPage,
+    decrementPage,
   ] as [
     boolean,
     Anime[] | undefined,
     Anime[] | undefined,
     number,
-    (page?: number) => void,
+    Dispatch<SetStateAction<number>>,
     string,
     number,
-    number
+    number,
+    () => void,
+    () => void
   ]
 }

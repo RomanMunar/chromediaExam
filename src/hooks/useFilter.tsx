@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { FilterId, getHeartedAnimes, getStarredAnimes } from '../localStorage'
 import { Anime } from '../models/anime'
 import { chunk } from 'lodash'
+import { offset } from '../constants'
 
 export const useFilter = (filter: string, filterId: FilterId) => {
   const [results, setResults] = useState<Anime[]>([])
@@ -44,11 +45,35 @@ export const useFilter = (filter: string, filterId: FilterId) => {
     //eslint-disable-next-line
   }, [filter, page])
 
-  return [results, page, setPage, totalCount, resultsCount] as [
+  const incrementPage = () => {
+    const isLastPage = page === totalCount / offset
+    if (isLastPage) {
+      return
+    }
+    setPage(page + 1)
+  }
+  const decrementPage = () => {
+    if (page === 1) {
+      return
+    }
+    setPage(page - 1)
+  }
+
+  return [
+    results,
+    page,
+    setPage,
+    totalCount,
+    resultsCount,
+    incrementPage,
+    decrementPage,
+  ] as [
     Anime[],
     number,
-    (page?: number) => void,
+    Dispatch<SetStateAction<number>>,
     number,
-    number
+    number,
+    () => void,
+    () => void
   ]
 }
