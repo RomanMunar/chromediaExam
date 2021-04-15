@@ -24,61 +24,61 @@ const HomeScreen = () => {
   const [pageConfig, setPageConfig] = useState<PageConfig>()
   const [displayedAnimes, setDisplayedAnimes] = useState<Anime[]>()
   const [
-    starAnimes,
+    starredAnimes,
     starPage,
     setStarPage,
-    starTotalCount,
+    starredAnimesTotalCount,
     starAnimesCount,
   ] = useFilter(filter, 'starredAnimes')
   const [
-    heartAnimes,
+    heartedAnimes,
     heartPage,
     setHeartPage,
-    heartTotalCount,
-    heartAnimesCount,
+    heartedAnimesTotalCount,
+    heartedAnimesCount,
   ] = useFilter(filter, 'heartedAnimes')
   const [
     loading,
-    animes,
-    page,
-    setPage,
+    searchedAnimes,
+    searchPage,
+    setSearchPage,
     searchKeyword,
-    totalCount,
-    resultsCount,
+    searchedAnimestotalCount,
+    searchedAnimesCount,
   ] = useSearch(filter)
 
   useEffect(() => {
     setPageConfig({
       page: starPage,
       setPage: setStarPage,
-      totalCount: starTotalCount,
+      totalCount: starredAnimesTotalCount,
       resultsCount: starAnimesCount,
     })
-    setDisplayedAnimes(starAnimes)
+    setDisplayedAnimes(starredAnimes)
     //eslint-disable-next-line
-  }, [starPage, starAnimes])
+  }, [starPage, starredAnimes])
 
   useEffect(() => {
     setPageConfig({
       page: heartPage,
       setPage: setHeartPage,
-      totalCount: heartTotalCount,
-      resultsCount: heartAnimesCount,
+      totalCount: heartedAnimesTotalCount,
+      resultsCount: heartedAnimesCount,
     })
-    setDisplayedAnimes(heartAnimes)
+    setDisplayedAnimes(heartedAnimes)
     //eslint-disable-next-line
-  }, [heartPage, heartAnimes])
+  }, [heartPage, heartedAnimes])
 
   useEffect(() => {
     setPageConfig({
-      setPage,
-      page,
-      totalCount,
-      resultsCount,
+      setPage: setSearchPage,
+      page: searchPage,
+      totalCount: searchedAnimestotalCount,
+      resultsCount: searchedAnimesCount,
     })
-    setDisplayedAnimes(animes)
+    setDisplayedAnimes(searchedAnimes)
     //eslint-disable-next-line
-  }, [page, animes])
+  }, [searchPage, searchedAnimes])
 
   return (
     <Layout>
@@ -90,7 +90,10 @@ const HomeScreen = () => {
               <SearchBar />
             </div>
             <div className="font-medium">
-              <span className="font-bold">{resultsCount}</span> Results
+              <span className="font-bold">
+                {pageConfig ? pageConfig.resultsCount : 0}
+              </span>{' '}
+              Results
             </div>
           </div>
           <div className="flex-grow w-full max-w-lg p-4 mx-auto md:hidden">
