@@ -4,7 +4,7 @@ import { getAnimes } from '../fetchers'
 import { Anime } from '../models/anime'
 import { useQuery } from '../utils'
 
-export const useSearch = (filter: string) => {
+export const useSearch = () => {
   const location = useLocation()
   const query = useQuery()
   const [loading, setLoading] = useState(true)
@@ -12,7 +12,7 @@ export const useSearch = (filter: string) => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [resultsCount, setResultsCount] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
-  const [fetchedAnimes, setFetchedAnimes] = useState<Anime[]>()
+  const [previousAnimes, setFetchedAnimes] = useState<Anime[]>()
   const [animes, setAnimes] = useState<Anime[]>()
 
   useEffect(() => {
@@ -45,17 +45,10 @@ export const useSearch = (filter: string) => {
     //eslint-disable-next-line
   }, [location, page])
 
-  useEffect(() => {
-    if (filter === 'none') {
-      // set animes to the previous fetched ones
-      setAnimes(fetchedAnimes)
-    }
-    //eslint-disable-next-line
-  }, [filter])
-
   return [
     loading,
     animes,
+    previousAnimes,
     page,
     setPage,
     searchKeyword,
@@ -63,6 +56,7 @@ export const useSearch = (filter: string) => {
     resultsCount,
   ] as [
     boolean,
+    Anime[] | undefined,
     Anime[] | undefined,
     number,
     (page?: number) => void,

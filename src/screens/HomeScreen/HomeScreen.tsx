@@ -40,12 +40,13 @@ const HomeScreen = () => {
   const [
     loading,
     searchedAnimes,
+    previouslySearchedAnimes,
     searchPage,
     setSearchPage,
     searchKeyword,
     searchedAnimestotalCount,
     searchedAnimesCount,
-  ] = useSearch(filter)
+  ] = useSearch()
 
   useEffect(() => {
     setPageConfig({
@@ -79,6 +80,13 @@ const HomeScreen = () => {
     setDisplayedAnimes(searchedAnimes)
     //eslint-disable-next-line
   }, [searchPage, searchedAnimes])
+
+  useEffect(() => {
+    if (filter === 'none') {
+      setDisplayedAnimes(previouslySearchedAnimes)
+    }
+    //eslint-disable-next-line
+  }, [filter])
 
   return (
     <Layout>
