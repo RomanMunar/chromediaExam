@@ -8,7 +8,7 @@ export const useSearch = (filter: string) => {
   const location = useLocation()
   const query = useQuery()
   const [loading, setLoading] = useState(true)
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const [searchKeyword, setSearchKeyword] = useState('')
   const [resultsCount, setResultsCount] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
@@ -18,7 +18,7 @@ export const useSearch = (filter: string) => {
   useEffect(() => {
     const onSearchFilter = async () => {
       setLoading(true)
-      const offset = page ? page * 10 : 0
+      const offset = page === 1 ? 0 : page * 10
       let queryParams = '?'
       if (location.search) {
         setSearchKeyword(query.get('filter[text]')!.toString())
@@ -34,9 +34,9 @@ export const useSearch = (filter: string) => {
       const animes = await getAnimes(queryParams)
       if (animes) {
         setResultsCount(animes.data.length)
+        setTotalCount(animes.meta.count)
         setAnimes(animes.data)
         setFetchedAnimes(animes.data)
-        setTotalCount(animes.meta.count)
       }
       setLoading(false)
     }
@@ -53,19 +53,21 @@ export const useSearch = (filter: string) => {
     //eslint-disable-next-line
   }, [filter])
 
-  return {
+  return [
     loading,
-    searchKeyword,
-    resultsCount,
     animes,
     page,
-    totalCount,
-    setAnimes,
-    setResultsCount,
     setPage,
-    incrementPage: () => setPage((p) => (p += 1)),
-    decrementPage: () => setPage((p) => (p -= 1)),
-    resetPage: () => setPage(0),
-  }
-  // eslint-disable-next-line
+    searchKeyword,
+    totalCount,
+    resultsCount,
+  ] as [
+    boolean,
+    Anime[] | undefined,
+    number,
+    (page?: number) => void,
+    string,
+    number,
+    number
+  ]
 }
