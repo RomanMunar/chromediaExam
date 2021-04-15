@@ -10,30 +10,6 @@ interface LocalStorage {
 
 export type FilterId = keyof LocalStorage
 
-interface Controller<T> {
-  id: FilterId
-  get: () => T[]
-  set: (items: T[]) => T[]
-  add: (item: T) => T[]
-  remove: (item: T) => T[]
-}
-
-export const StarController: Controller<Anime> = {
-  id: 'starredAnimes',
-  get: getStarredAnimes,
-  set: setStarredAnimes,
-  add: addStarAnime,
-  remove: removeStarAnime,
-}
-
-export const HeartController: Controller<Anime> = {
-  id: 'heartedAnimes',
-  get: getHeartedAnimes,
-  set: setHeartedAnimes,
-  add: addHeartAnime,
-  remove: removeHeartAnime,
-}
-
 const getLocalStorageItem = (item: FilterId) => {
   const items = JSON.parse(localStorage.getItem(item)!)
   return items ? items : setLocalStorageItem(item, [])
