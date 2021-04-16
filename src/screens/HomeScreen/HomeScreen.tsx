@@ -138,21 +138,23 @@ const HomeScreen = () => {
               </div>
             )}
             <div className="grid grid-cols-1 gap-8 p-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-              {loading
-                ? new Array(8)
-                    .fill(undefined)
-                    .map((_, idx) => (
-                      <div
-                        className="w-full bg-gray-500 rounded shadow h-80 animate-pulse"
-                        key={idx}
-                      />
-                    ))
-                : displayedAnimes &&
-                  displayedAnimes.map((anime) => (
-                    <AnimeCard anime={anime} key={anime.id} />
+              {displayedAnimes &&
+                displayedAnimes.map((anime) => (
+                  <AnimeCard anime={anime} key={anime.id} />
+                ))}
+              {loading &&
+                new Array(8)
+                  .fill(undefined)
+                  .map((_, idx) => (
+                    <div
+                      className="w-full bg-gray-500 rounded shadow h-80 animate-pulse"
+                      key={idx}
+                    />
                   ))}
             </div>
-            <div className="h-20" ref={triggerNextPageElement}></div>
+            {displayedAnimes && displayedAnimes.length >= 0 && (
+              <div className="h-20" ref={triggerNextPageElement}></div>
+            )}
             {!loading && displayedAnimes && displayedAnimes.length <= 0 && (
               <div className="py-10 space-y-4">
                 <h2 className="text-3xl font-bold text-center">
