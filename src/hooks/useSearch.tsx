@@ -13,7 +13,6 @@ export const useSearch = () => {
   const [searchKeyword, setSearchKeyword] = useState('')
   const [resultsCount, setResultsCount] = useState(0)
   const [totalCount, setTotalCount] = useState(0)
-  const [previousAnimes, setFetchedAnimes] = useState<Anime[]>()
   const [animes, setAnimes] = useState<Anime[]>()
 
   useEffect(() => {
@@ -32,12 +31,17 @@ export const useSearch = () => {
       if (page) {
         queryParams += `&page%5Blimit%5D=10&page%5Boffset%5D=${offset}`
       }
-      const animes = await getAnimes(queryParams)
-      if (animes) {
-        setResultsCount(animes.data.length)
-        setTotalCount(animes.meta.count)
-        setAnimes(animes.data)
-        setFetchedAnimes(animes.data)
+      const animeResults = await getAnimes(queryParams)
+      if (animeResults) {
+        if (animes) {
+          const newAnimes = [...animes, ...animeResults.data]
+          setResultsCount(newAnimes.length)
+          setAnimes(newAnimes)
+        } else {
+          setResultsCount(animeResults.data.length)
+          setAnimes(animeResults.data)
+        }
+        setTotalCount(animeResults.meta.count)
       }
       setLoading(false)
     }
@@ -63,7 +67,6 @@ export const useSearch = () => {
   return [
     loading,
     animes,
-    previousAnimes,
     page,
     setPage,
     searchKeyword,
@@ -73,7 +76,6 @@ export const useSearch = () => {
     decrementPage,
   ] as [
     boolean,
-    Anime[] | undefined,
     Anime[] | undefined,
     number,
     Dispatch<SetStateAction<number>>,

@@ -14,11 +14,11 @@ export const useFilter = (filter: string, filterId: FilterId) => {
     if (filter === 'none') return
 
     if (filter === 'star') {
-      const results = getStarredAnimes()
-      const pages = chunk(results, 10)
+      const starResults = getStarredAnimes()
+      const pages = chunk(starResults, 10)
       const currentPage = pages[page - 1]
       if (currentPage) {
-        setResults(currentPage)
+        setResults([...results, ...currentPage])
         setTotalCount(results.length)
         setResultsCount(currentPage.length)
       } else {
@@ -29,11 +29,11 @@ export const useFilter = (filter: string, filterId: FilterId) => {
     }
 
     if (filter === 'heart') {
-      const results = getHeartedAnimes()
-      const pages = chunk(results, 10)
+      const heartResults = getHeartedAnimes()
+      const pages = chunk(heartResults, 10)
       const currentPage = pages[page - 1]
       if (currentPage) {
-        setResults(currentPage)
+        setResults([...results, ...currentPage])
         setTotalCount(results.length)
         setResultsCount(currentPage.length)
       } else {

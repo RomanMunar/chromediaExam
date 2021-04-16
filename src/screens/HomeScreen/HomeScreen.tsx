@@ -43,7 +43,6 @@ const HomeScreen = () => {
   const [
     loading,
     searchedAnimes,
-    previouslySearchedAnimes,
     searchPage,
     setSearchPage,
     searchKeyword,
@@ -87,13 +86,6 @@ const HomeScreen = () => {
   }, [searchPage, searchedAnimes])
 
   useEffect(() => {
-    if (filter === 'none') {
-      setDisplayedAnimes(previouslySearchedAnimes)
-    }
-    //eslint-disable-next-line
-  }, [filter])
-
-  useEffect(() => {
     if (intersection) {
       if (intersection.isIntersecting) {
         if (filter === 'none') {
@@ -103,7 +95,6 @@ const HomeScreen = () => {
         } else {
           incrementHeartPage()
         }
-        window.scrollTo({ top: 0 })
       }
     }
     //eslint-disable-next-line
